@@ -1,23 +1,19 @@
 import pytest
+import data
 from main import BooksCollector
 
-@pytest.fixture
-def names_and_genre():
+#Возвращает экземпляр класса BooksCollector
+@pytest.fixture()
+def collector():
     collector = BooksCollector()
-    books = [
-        'Фантастические приключения',
-        'Ужасные приключения',
-        'Детективные приключения',
-        'Детские приключения',
-        'Веселые приключения'
-    ]
-    genres = [
-        'Фантастика',
-        'Ужасы',
-        'Детективы',
-        'Мультфильмы',
-        'Комедии'
-    ]
-    for i in range(0, len(books)):
-        collector.books_genre[books[i]] = genres[i]
     return collector
+
+#Создание одной книги для использования в классе
+@pytest.fixture
+def add_one_book(collector):
+    collector.books_genre[data.one_book_name] = ''
+
+#Создание списка книг с жанрами для использования в классе
+@pytest.fixture
+def names_and_genre(collector):
+    collector.books_genre = data.book_names
